@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,7 +6,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  @override
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -46,7 +47,7 @@ class App extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 120,
+              height: 80,
             ),
             Text(
               'Total Balance',
