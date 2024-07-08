@@ -4,6 +4,58 @@ void main() {
   runApp(const App());
 }
 
+class YelloButton extends StatelessWidget{
+  String yelloText = "Transfer";
+  String blackText = "Request";
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 20,
+                      ),
+                      child: Text(
+                        'Transfer',
+                        style: TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  );
+  }
+} 
+
+class BlackButton extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 20,
+                      ),
+                      child: Text(
+                        'Transfer',
+                        style: TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  );
+  }
+
+} 
+// 코드 왼쪽 전구 클릭시 추가 작업
 class App extends StatelessWidget {
   const App({super.key});
   
@@ -71,24 +123,7 @@ class App extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(45),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 20,
-                      ),
-                      child: Text(
-                        'Transfer',
-                        style: TextStyle(
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                  ),
+                  YelloButton(),
                 ],
               )
             ],
