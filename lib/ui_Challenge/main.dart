@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:toonflix/widgets/Button.dart';
-import 'package:toonflix/widgets/card.dart';
+import 'package:toonflix/ui_Challenge/widgets/button.dart';
+import 'package:toonflix/ui_Challenge/widgets/card.dart';
 
 void main() {
   runApp(const App());
@@ -133,35 +133,32 @@ class App extends StatelessWidget {
                 ),
 
                 const CurrencyCard(
-                  name: "Euro",
-                  code: "EUR",
-                  amount: "6 428",
-                  icon: Icons.euro_rounded,
-                  isInverted: false,
-                ),
+                    name: "Euro",
+                    code: "EUR",
+                    amount: "6 428",
+                    icon: Icons.euro_rounded,
+                    isInverted: false,
+                    offset: 0,
+                  ),
+                
 
-                Transform.translate(
-                  offset: Offset(0, -20),
-                  child: const CurrencyCard(
+                const CurrencyCard(
                     name: "Dollar",
                     code: "USD",
                     amount: "55 622",
                     icon: Icons.attach_money_outlined,
                     isInverted: true,
+                    offset: -20,
                   ),
-                ),
 
-                Transform.translate(
-                  offset: Offset(0, -40),
-                  child: const CurrencyCard(
+                const CurrencyCard(
                     name: "Rupee",
                     code: "INR",
                     amount: "28 981",
                     icon: Icons.currency_rupee_outlined,
                     isInverted: false,
+                    offset: -40,
                   ),
-                ),
-                
               ],
             ),
           ),
