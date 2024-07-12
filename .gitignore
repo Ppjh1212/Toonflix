@@ -10,6 +10,8 @@
 .svn/
 migrate_working_dir/
 
+
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -30,6 +32,18 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+.vscode
+android
+ios
+linux
+macos
+test
+web
+windows
+.metadata
+analysis_options.yaml
+pubspec.lock
+pubspec.yaml
 
 # Symbolication related
 app.*.symbols
