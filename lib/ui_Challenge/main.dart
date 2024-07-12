@@ -7,7 +7,7 @@ void main() {
   runApp(const App());
 }
 
-// 코드 왼쪽 전구 클릭시 추가 작업
+// 코드 왼쪽 전구 클릭시 추가 작업 가능
 class App extends StatelessWidget {
   const App({super.key});
 

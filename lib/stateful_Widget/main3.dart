@@ -65,7 +65,6 @@ class _MyLargeTitleState extends State<MyLargeTitle> {
 
   @override
   void dispose() {
-    // api업데이트 & 이벤트 리스너로부터 구독 취소
     super.dispose();
     print("dispose!");
   }
@@ -76,7 +75,10 @@ class _MyLargeTitleState extends State<MyLargeTitle> {
       "My Large Title",
       style: TextStyle(
         fontSize: 30,
-        color: Theme.of(context).textTheme.titleLarge?.color, //context를 이용해, 상위 요소 데이터(color)을 가져온다.
+        color: Theme.of(context)
+            .textTheme
+            .titleLarge
+            ?.color, //context를 이용해, 상위 요소 데이터(color)을 가져온다.
       ),
     );
   }
