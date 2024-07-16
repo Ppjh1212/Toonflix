@@ -1,13 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-void main() {
-  runApp(const HomeScreen());
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class _HomeScreenState extends State<HomeScreen> {
+  int totalSeconds = 1500;
+  late Timer timer;
+
+  void onTick(Timer timer){
+    setState(() {
+      --totalSeconds;
+    });
+  }
+
+  void onStartPressed(){
+    timer = Timer.periodic(Duration(seconds: 1), onTick);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +57,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 50,
           ),
           Flexible(
