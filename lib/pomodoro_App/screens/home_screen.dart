@@ -13,16 +13,31 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int totalSeconds = 1500;
+  bool isRunning = false;
   late Timer timer;
 
-  void onTick(Timer timer){
+  void onTick(Timer timer) {
     setState(() {
-      --totalSeconds;
+      totalSeconds--;
     });
   }
 
-  void onStartPressed(){
-    timer = Timer.periodic(Duration(seconds: 1), onTick);
+  void onStartPressed() {
+    //periodic time은 주기마다 onTick()함수를 실행한다.
+    timer = Timer.periodic(
+      const Duration(seconds: 1), //1초 주기
+      onTick,
+    );
+    setState(() {
+      isRunning = true;
+    });
+  }
+
+  void onPausePressed() {
+    timer.cancel();
+    setState(() {
+      isRunning = false;
+    });
   }
 
   @override
@@ -37,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                "25:00",
+                "$totalSeconds",
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -52,13 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 iconSize: 120,
                 color: Theme.of(context).cardColor,
-                onPressed: () {},
-                icon: const Icon(Icons.play_circle_outline),
+                onPressed: isRunning ? onPausePressed : onStartPressed,
+                icon: Icon(
+                  isRunning
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 50,
           ),
           Flexible(
             flex: 1,
