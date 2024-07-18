@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:toonflix/ui_Challenge/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,21 +13,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int totalSeconds = 1500;
+  static const int twentyFiveMinutes = 1500;
+  int totalSeconds = twentyFiveMinutes;
   bool isRunning = false;
+  int totalPomodoros = 0;
   late Timer timer;
 
   void onTick(Timer timer) {
-    setState(() {
-      totalSeconds--;
-    });
+    if (totalSeconds == 0) {
+      setState(() {
+        ++totalPomodoros;
+        isRunning = false;
+        totalSeconds = twentyFiveMinutes;
+        timer.cancel();
+      });
+    } else {
+      setState(() {
+        totalSeconds--;
+      });
+    }
   }
 
   void onStartPressed() {
     //periodic time은 주기마다 onTick()함수를 실행한다.
     timer = Timer.periodic(
-      const Duration(seconds: 1), //1초 주기
-      onTick,
+      const Duration(seconds: 1), //시간 간격 1초 주기
+      onTick, // 타이머가 만료된 후 함수 실행
     );
     setState(() {
       isRunning = true;
@@ -40,10 +52,34 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  String format(int seconds) {
+    var duration = Duration(seconds: seconds);
+    return duration
+        .toString()
+        .split('.')
+        .first
+        .substring(2, 7); //문자열 변경 -> .기준 분할 -> list의 첫번째 -> index x~y까지
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Pomodoros App',
+              style: TextStyle(
+                color: Colors.white70,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           //children coponent
@@ -52,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                "$totalSeconds",
+                format(totalSeconds),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -101,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          "0",
+                          "$totalPomodoros",
                           style: TextStyle(
                             fontSize: 58,
                             fontWeight: FontWeight.w600,

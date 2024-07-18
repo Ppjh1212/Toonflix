@@ -11,8 +11,9 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFE7626C),
+        scaffoldBackgroundColor: Color.fromARGB(255, 77, 155, 214),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             color: Color(0xff232B55),
