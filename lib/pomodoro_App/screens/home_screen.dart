@@ -52,6 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onSkip() {
+    setState(() {
+      if (totalSeconds >= 10) {
+        totalSeconds = totalSeconds - 10;
+      }
+    });
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
     return duration
@@ -99,17 +107,32 @@ class _HomeScreenState extends State<HomeScreen> {
           ), //하드 코딩되는 값을 만든다.
           Flexible(
             flex: 3,
-            child: Center(
-              child: IconButton(
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(
-                  isRunning
-                      ? Icons.pause_circle_outline
-                      : Icons.play_circle_outline,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: IconButton(
+                    iconSize: 120,
+                    color: Theme.of(context).cardColor,
+                    onPressed: isRunning ? onPausePressed : onStartPressed,
+                    icon: Icon(
+                      isRunning
+                          ? Icons.pause_circle_outline
+                          : Icons.play_circle_outline,
+                    ),
+                  ),
                 ),
-              ),
+                Center(
+                  child: IconButton(
+                    iconSize: 120,
+                    color: Theme.of(context).cardColor,
+                    onPressed: onSkip,
+                    icon: const Icon(
+                      Icons.double_arrow_rounded,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Flexible(
