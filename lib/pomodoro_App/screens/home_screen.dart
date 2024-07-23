@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:toonflix/ui_Challenge/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -52,11 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void onSkip() {
+  void onCountResetPressed() {
+    timer.cancel();
     setState(() {
-      if (totalSeconds >= 10) {
-        totalSeconds = totalSeconds - 10;
-      }
+      totalSeconds = twentyFiveMinutes;
+      isRunning = false;
     });
   }
 
@@ -126,9 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: IconButton(
                     iconSize: 120,
                     color: Theme.of(context).cardColor,
-                    onPressed: onSkip,
+                    onPressed: onCountResetPressed,
                     icon: const Icon(
-                      Icons.double_arrow_rounded,
+                      Icons.refresh_outlined,
                     ),
                   ),
                 ),
