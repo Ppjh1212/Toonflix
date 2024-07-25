@@ -1,4 +1,4 @@
-# Flutter-Study
+# Toonflix
 
 A new Flutter project.
 
