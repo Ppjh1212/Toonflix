@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:toonflix/ui_Challenge/widgets/button.dart';
-import 'package:toonflix/ui_Challenge/widgets/card.dart';
+import 'package:Flutter_Study/ui_Challenge/widgets/button.dart';
+import 'package:Flutter_Study/ui_Challenge/widgets/card.dart';
 
 void main() {
   runApp(const App());

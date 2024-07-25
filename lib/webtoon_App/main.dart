@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toonflix/stateful_Widget/main2.dart';
+import 'package:Flutter_Study/webtoon_App/service/api_Service.dart';
 
-void main(){
+void main() {
+  ApiService().getTodaysToon();
   runApp(const MyWidget());
 }
 
@@ -12,9 +13,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Container(
-        
-      ),
+      home: Container(),
     );
   }
 }
