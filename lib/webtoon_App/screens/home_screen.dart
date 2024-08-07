@@ -1,8 +1,32 @@
+import 'package:Flutter_Study/webtoon_App/models/webtoon_model.dart';
+import 'package:Flutter_Study/webtoon_App/service/api_Service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<WebtoonModel> webtoons = []; 
+  bool isLoading = true;
+
+  void waitForWebToons() async {
+    webtoons = await ApiService().getTodaysToon();
+    isLoading = false;
+    setState(() {
+       
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    waitForWebToons();
+  }
 
   @override
   Widget build(BuildContext context) {
