@@ -27,13 +27,20 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: FutureBuilder( // FutureBuilder : 비동기 데이터를 이용해 화면을 구성하는 위젯
+      body: FutureBuilder(
+        // FutureBuilder : 비동기 데이터를 이용해 화면을 구성하는 위젯
         future: webtoons,
         builder: (context, snapshot) {
-          if (snapshot.hasData) { //future을 기다리고, snapshot.hasData가 존재하는지 알려준다
-            return ListView(
+          if (snapshot.hasData) {
+            // future을 기다리고, snapshot.hasData가 존재하는지 알려준다
+            return Column(
               children: [
-                for (var webtoon in snapshot.data!) Text(webtoon.title),
+                const SizedBox(
+                  height: 50,
+                ),
+                Expanded(
+                  child: makeList(snapshot),
+                ),
               ],
             );
           }
@@ -41,6 +48,41 @@ class HomeScreen extends StatelessWidget {
             child: CircularProgressIndicator(), //로딩 표시
           );
         },
+      ),
+    );
+  }
+
+  ListView makeList(AsyncSnapshot<List<WebtoonModel>> snapshot) {
+    return ListView.separated(
+      // 사용자가 보고 있는 아이템만 build
+      scrollDirection: Axis.horizontal,
+      itemCount: snapshot.data!.length,
+      itemBuilder: (context, index) {
+        var webtoon = snapshot.data![index];
+        return Column(
+          children: [
+            SizedBox(
+              width: 230,
+              child: Image.network(
+                webtoon.thumb,
+                headers: const {
+                  "User-Agent":
+                      "Mozilla/5.0 (Macintosh; Intel windows) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              webtoon.title,
+              style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
+            ),
+          ],
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 20,
       ),
     );
   }

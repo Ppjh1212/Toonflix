@@ -11,7 +11,7 @@ class ApiService {
     List<WebtoonModel> webtoonInstances = [];
     final url = Uri.parse('$baseUrl/$today');
     final response = await http.get(url); // API요청이 처리되어 반환할 때까지 기다림. 비동기 프로그래밍
-    if (response.statusCode == 200) { // 상태코드가 200 즉, 요청이 성공했을때.
+    if (response.statusCode == 200) { // 상태코드가 200. 요청성공
       final webtoons = jsonDecode(response.body);
       for (var webtoon in webtoons) {
         final instance = WebtoonModel.fromJson(webtoon);
