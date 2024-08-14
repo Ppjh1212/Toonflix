@@ -1,5 +1,6 @@
 import 'package:Flutter_Study/webtoon_App/models/webtoon_model.dart';
 import 'package:Flutter_Study/webtoon_App/service/api_Service.dart';
+import 'package:Flutter_Study/webtoon_App/widgets/webtoon_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -57,28 +58,13 @@ class HomeScreen extends StatelessWidget {
       // 사용자가 보고 있는 아이템만 build
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       itemBuilder: (context, index) {
         var webtoon = snapshot.data![index];
-        return Column(
-          children: [
-            SizedBox(
-              width: 230,
-              child: Image.network(
-                webtoon.thumb,
-                headers: const {
-                  "User-Agent":
-                      "Mozilla/5.0 (Macintosh; Intel windows) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              webtoon.title,
-              style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
-            ),
-          ],
+        return Webtoon(
+          title: webtoon.title,
+          thumb: webtoon.thumb,
+          id: webtoon.id,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(
