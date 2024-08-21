@@ -1,7 +1,10 @@
 import 'package:Flutter_Study/webtoon_App/models/webtoon_detail_model.dart';
 import 'package:Flutter_Study/webtoon_App/models/webtoon_episode_model.dart';
 import 'package:Flutter_Study/webtoon_App/service/api_Service.dart';
+import 'package:Flutter_Study/webtoon_App/widgets/episode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -26,7 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     webtoon = ApiService.getToonByid(widget.id);
     episodes = ApiService.getLatestEpisodesByid(widget.id);
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -121,36 +124,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Column(
                       children: [
                         for (var episode in snapshot.data!)
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 7),
-                            decoration: BoxDecoration(
-                                color: Colors.green.shade400,
-                                borderRadius: BorderRadius.circular(17)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 20,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    episode.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
+                          Episode(episode: episode)
                       ],
                     );
                   }
