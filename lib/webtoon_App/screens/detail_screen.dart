@@ -3,8 +3,7 @@ import 'package:Flutter_Study/webtoon_App/models/webtoon_episode_model.dart';
 import 'package:Flutter_Study/webtoon_App/service/api_Service.dart';
 import 'package:Flutter_Study/webtoon_App/widgets/episode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -23,13 +22,25 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
+  late SharedPreferences prefs;
+
+  Future initPrefs() async{
+    prefs = await SharedPreferences.getInstance();
+    final LikedToons =  prefs.getStringList('LikedToons');
+    if(LikedToons != null){
+      
+    }else{
+      await prefs.setStringList('LikedToons', []);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     webtoon = ApiService.getToonByid(widget.id);
     episodes = ApiService.getLatestEpisodesByid(widget.id);
-  } 
+    initPrefs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +50,12 @@ class _DetailScreenState extends State<DetailScreen> {
         elevation: 2, //음영
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_outline_outlined),
+          )
+        ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -124,7 +141,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     return Column(
                       children: [
                         for (var episode in snapshot.data!)
-                          Episode(episode: episode)
+                          Episode(
+                            episode: episode,
+                            webtoonId: widget.id,
+                          )
                       ],
                     );
                   }

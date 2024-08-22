@@ -1,7 +1,7 @@
 import 'package:Flutter_Study/webtoon_App/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() {   
   runApp(const MyWidget());
 }
 

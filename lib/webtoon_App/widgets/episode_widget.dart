@@ -6,12 +6,14 @@ class Episode extends StatelessWidget {
   const Episode({
     super.key,
     required this.episode,
+    required this.webtoonId
   });
 
   final WebtoonEpisodeModel episode;
+  final String webtoonId;
 
   onButtonTap() async {
-    await launchUrlString("https://google.com");
+    await launchUrlString("https:/comic.naver.com/webtoon/detail?titleId=$webtoonId&no=${episode.id}",);
   }
 
   @override
@@ -19,7 +21,7 @@ class Episode extends StatelessWidget {
     return GestureDetector(
       onTap: onButtonTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 7),
+        margin: const EdgeInsets.only(bottom: 7,),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(17),
           border: Border.all(color: Colors.green, width: 2),
