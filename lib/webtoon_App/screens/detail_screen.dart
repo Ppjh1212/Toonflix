@@ -23,15 +23,35 @@ class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
   late SharedPreferences prefs;
+  bool isLiked = false;
 
-  Future initPrefs() async{
-    prefs = await SharedPreferences.getInstance();
-    final LikedToons =  prefs.getStringList('LikedToons');
-    if(LikedToons != null){
-      
-    }else{
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance(); // 사용자 저장소
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      //사용자의 저장소에서 likedToons를 찾고
+      if (likedToons.contains(widget.id) == true) {
+        // likedToons가 웹툰의 id를 갖고 있는지 확인
+        setState(() {
+          isLiked = true;          
+        });
+      }
+    } else {
       await prefs.setStringList('LikedToons', []);
     }
+  }
+
+  onHeartTap() async {
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if(isLiked){
+        likedToons.remove(widget.id);
+      }else{
+        likedToons.add(widget.id);
+      }
+      await prefs.setStringList('likedToons', likedToons);
+    }
+
   }
 
   @override
@@ -52,8 +72,10 @@ class _DetailScreenState extends State<DetailScreen> {
         foregroundColor: Colors.green,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_outline_outlined),
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_outline_outlined,
+            ),
           )
         ],
         title: Row(
