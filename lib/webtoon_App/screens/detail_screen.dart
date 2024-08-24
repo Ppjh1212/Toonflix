@@ -37,8 +37,16 @@ class _DetailScreenState extends State<DetailScreen> {
         });
       }
     } else {
-      await prefs.setStringList('LikedToons', []);
+      await prefs.setStringList('likedToons', []);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    webtoon = ApiService.getToonByid(widget.id);
+    episodes = ApiService.getLatestEpisodesByid(widget.id);
+    initPrefs();
   }
 
   onHeartTap() async {
@@ -50,16 +58,12 @@ class _DetailScreenState extends State<DetailScreen> {
         likedToons.add(widget.id);
       }
       await prefs.setStringList('likedToons', likedToons);
+      setState(() {
+        isLiked = !isLiked;
+      });
     }
 
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    webtoon = ApiService.getToonByid(widget.id);
-    episodes = ApiService.getLatestEpisodesByid(widget.id);
-    initPrefs();
   }
 
   @override
